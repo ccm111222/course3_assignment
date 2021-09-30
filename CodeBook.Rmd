@@ -1,0 +1,83 @@
+---
+title: "Code book"
+output: pdf_document
+---
+
+## 1. Download all the raw data files.
+All the data files were downloaded from:
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
+## 2. There were in total 8 raw data files:
+1) A feature list file called "features.txt";
+2) A activity code file called "activity_labels.txt";
+3) Training cohort has 3 files:
+  a) "subject_train.txt" file has listed all the people ID;
+  b) "x_train.txt" file contains all the data of features;
+  c) "y_train.txt" file contains all the activity code the people.
+4) Test cohort has 3 similar files as the training cohort.
+
+## 3. Load the 8 raw data files to 8 variables in R:
+1) features: 
+The variable contains the list of all features. The features come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. The acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ). A Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain signals).
+
+2) activity_label:
+The variable contains the activity code and the corresponding activities.
+
+3) subject_train:
+The variable contains the list of all the people's ID in the training set.
+
+4) x_train:
+The variable contains all the data of features in the training set.
+
+5) y_train:
+The contains all the activity code the people in the training set.
+
+6) subject_test:
+The variable contains the list of all the people's ID in the test set.
+
+7) x_test:
+The variable contains all the data of features in the test set.
+
+8) y_test:
+The contains all the activity code the people in the test set.
+
+## 4. Combine the loaded data into a single data frame
+1) test
+Merges 3 data frames: subject_test, y_test, x_test.
+
+2) train
+Merges 3 data frames: subject_train, y_train, x_train
+
+3) train_test
+Merge "train" and "test" datasets into a single data frame.
+
+## 5. Select the columns that contains "mean" or "std"
+selected_file: use "grepl" to select the columns that contains "mean" and "std", and save the resulting data into a new data frame called "selected_file".
+
+## 6. Change the activity code into activity name
+Use a for loop to change all of "activity code" in the "selected_file" data frame into "activity", using the codes in the file "activity_label".
+
+## 7. Change the column names to descriptive names
+Change all the column names to descriptive names using "gsub", and separate names with "_".
+1) "std" to "StandardDeviation";
+2) "Acc" to "_Accelerometer";
+3) "Gyro" to "_Gyroscope";
+4) "Mag" to "_Magnitude";
+5) "Freq" to "Frequency";
+6) "f" at the beginning to "Frequency_";
+7) "t" at the beginning to "Time_";
+8) "X" at the end to "X_axis";
+9) "Y" at the end to "Y_axis";
+10) "Z" at the end to "Z_axis";
+
+## 8. Export the tidy data frame 
+Export the "selected_file" to a csv file called "tidyTable.csv".
+
+## 9. Creates a second, independent tidy data set (named "tidyTable2") with the average of each variable for each activity and each subject.
+Export the data with column mean  group by "object" and "activity" to a csv file called "tidyTable2.csv".
+
+
+
+
+
+
